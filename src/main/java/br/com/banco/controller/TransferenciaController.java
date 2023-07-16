@@ -4,6 +4,7 @@ import br.com.banco.dto.response.TransferenciaResponse;
 import br.com.banco.service.TransferenciaService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,8 +20,8 @@ public class TransferenciaController {
         this.transferenciaService = transferenciaService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<TransferenciaResponse>> buscarTodas() {
-        return ResponseEntity.ok().body(transferenciaService.buscarTodas());
+    @GetMapping("/{idConta}")
+    public ResponseEntity<List<TransferenciaResponse>> buscarTodas(@PathVariable Long idConta) {
+        return ResponseEntity.ok().body(transferenciaService.buscarTodas(idConta));
     }
 }

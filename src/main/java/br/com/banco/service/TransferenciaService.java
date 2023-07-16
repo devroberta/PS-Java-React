@@ -21,8 +21,8 @@ public class TransferenciaService {
     }
 
     @Transactional(readOnly = true)
-    public List<TransferenciaResponse> buscarTodas() {
-        List<Transferencia> lista = transferenciaRepository.findAll();
+    public List<TransferenciaResponse> buscarTodas(Long idConta) {
+        List<Transferencia> lista = transferenciaRepository.findAllTransferenciaById(idConta);
         List<TransferenciaResponse> listaResponse = lista.stream().map(element -> new TransferenciaResponse(element)).collect(Collectors.toList());
         return listaResponse;
     }
