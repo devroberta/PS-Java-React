@@ -15,7 +15,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name="transferencia")
 public class Transferencia implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @Id
