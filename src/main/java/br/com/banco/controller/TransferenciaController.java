@@ -3,11 +3,9 @@ package br.com.banco.controller;
 import br.com.banco.dto.response.TransferenciaResponse;
 import br.com.banco.service.TransferenciaService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -20,8 +18,15 @@ public class TransferenciaController {
         this.transferenciaService = transferenciaService;
     }
 
-    @GetMapping("/{idConta}")
-    public ResponseEntity<List<TransferenciaResponse>> buscarTodas(@PathVariable Long idConta) {
-        return ResponseEntity.ok().body(transferenciaService.buscarTodas(idConta));
+    @GetMapping("/{idConta}/filtro")
+    public ResponseEntity<List<TransferenciaResponse>> buscarPorDatasEPorNomeOperadorTransacao(
+            @PathVariable Long idConta,
+            @RequestParam(value = "dataInicial", defaultValue = "0") String dataInicial,
+            @RequestParam(value = "dataFinal", defaultValue = "0") String dataFinal,
+            @RequestParam(value = "nomeOperadorTransacao", defaultValue = "0") String nomeOperadorTransacao) {
+
+        return ResponseEntity.ok().body(transferenciaService.buscarPorDatasEPorNomeOperadorTransacao(
+                idConta, dataInicial, dataFinal, nomeOperadorTransacao
+        ));
     }
 }
