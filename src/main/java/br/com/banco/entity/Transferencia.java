@@ -24,6 +24,7 @@ public class Transferencia implements Serializable {
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private LocalDateTime dataTransferencia;
 
+    @Column(precision = 2, scale = 3)
     private BigDecimal valor;
 
     private String tipo;
