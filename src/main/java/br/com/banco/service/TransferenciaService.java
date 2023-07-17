@@ -5,17 +5,13 @@ import br.com.banco.entity.Conta;
 import br.com.banco.entity.Transferencia;
 import br.com.banco.repository.ContaRepository;
 import br.com.banco.repository.TransferenciaRepository;
-import org.modelmapper.ModelMapper;
+import br.com.banco.service.exception.APIException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.swing.text.DateFormatter;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,7 +35,7 @@ public class TransferenciaService {
         LocalDate dataInicialResponse;
         LocalDate dataFinalResponse;
 
-        Optional<Conta> conta = contaRepository.findById(id);
+        Conta conta = contaRepository.findById(id).orElseThrow(() -> new APIException("Conta "+id + " nao encontrada."));
 
 
         dataInicialResponse = dataInicialRequest.equals("0") ?
@@ -49,7 +45,7 @@ public class TransferenciaService {
                 converterStringData("2999-12-31") : converterStringData(dataFinalRequest);
 
         if (dataInicialResponse.isAfter(dataFinalResponse)) {
-            //Lançar Exception
+            throw new APIException("Data Inicial nao pode ser maior que data final.");
         }
 
         if (nomeOperadorTransacao.equals("0")) {
