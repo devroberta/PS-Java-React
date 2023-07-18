@@ -49,13 +49,7 @@ public class TransferenciaService {
         }
 
         if (nomeOperadorTransacao.equals("0")) {
-            nomeOperadorTransacao = "%%";
-        } else {
-            nomeOperadorTransacao = new StringBuilder()
-                    .append("%")
-                    .append(nomeOperadorTransacao)
-                    .append("%")
-                    .toString();
+            nomeOperadorTransacao = "";
         }
 
         List<Transferencia> lista = transferenciaRepository.findByDataTransferenciaBetweenAndNomeOperadorTransacao(

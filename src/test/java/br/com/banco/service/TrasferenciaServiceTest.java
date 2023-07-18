@@ -57,11 +57,11 @@ public class TrasferenciaServiceTest {
         Conta conta = ContaStub.gerarContaCustomizada();
         transferenciaService.buscarPorDatasEPorNomeOperadorTransacao(
                 transferencia.getId(), transferencia.getDataTransferencia().toLocalDate().toString(),
-                transferencia.getDataTransferencia().toLocalDate().toString(), "Beltrano");
+                transferencia.getDataTransferencia().toLocalDate().toString(), transferencia.getNomeOperadorTransacao());
 
         verify(transferenciaRepository, Mockito.times(1))
                 .findByDataTransferenciaBetweenAndNomeOperadorTransacao(
                         conta.getIdConta(), transferencia.getDataTransferencia().toLocalDate(),
-                        transferencia.getDataTransferencia().toLocalDate(), "Beltrano");
+                        transferencia.getDataTransferencia().toLocalDate(), transferencia.getNomeOperadorTransacao());
     }
 }
