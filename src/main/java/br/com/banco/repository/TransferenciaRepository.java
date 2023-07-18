@@ -21,7 +21,7 @@ public interface TransferenciaRepository extends JpaRepository<Transferencia, Lo
                     + "WHERE t.conta_id = :id "
                     + "AND t.data_transferencia BETWEEN :dataInicial AND :dataFinal "
                     + "AND (case when :nomeOperador = '%%' then (0=0) "
-                    + "else (lower(t.nome_operador_transacao) LIKE lower(:nomeOperador)) "
+                    + "else (lower(t.nome_operador_transacao) LIKE lower(concat(:nomeOperador,'%'))) "
                     + "end)", nativeQuery = true)
     List<Transferencia> findByDataTransferenciaBetweenAndNomeOperadorTransacao(
             @Param("id") Long id,
